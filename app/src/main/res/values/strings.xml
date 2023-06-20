@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KioskAndroid</string>
+    <string name="start_lock_task">Start Lock Task</string>
+    <string name="stop_lock_task">Stop Lock Task</string>
+    <string name="install_app">Install App</string>
+    <string name="not_device_owner">You are not device owner</string>
+    <string name="device_owner">You are admin!</string>
+</resources>
