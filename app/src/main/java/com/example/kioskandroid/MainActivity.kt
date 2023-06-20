@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.UserManager
 import android.provider.Settings
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kioskandroid.databinding.ActivityMainBinding
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         mDevicePolicyManager.removeActiveAdmin(mAdminComponentName) //it will remove the active admin
 
+        // Keep the screen on and bright while this kiosk activity is running.
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         handleClickListener()
 
@@ -60,12 +63,9 @@ class MainActivity : AppCompatActivity() {
             }
             intent.putExtra(LOCK_ACTIVITY_KEY, false)
             startActivity(intent)
+            mDevicePolicyManager.clearDeviceOwnerApp(packageName)
         }
-        binding.btnInstallApp.setOnClickListener {
-            //The purpose of this button is to install any android application that you want in kiosk mode
-//            installApp()
-            Toast.makeText(this, "This button is temporary blocked", Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     private fun isAdmin() = mDevicePolicyManager.isDeviceOwnerApp(packageName)
@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         setUserRestriction(UserManager.DISALLOW_ADD_USER, disallow)
         setUserRestriction(UserManager.DISALLOW_MOUNT_PHYSICAL_MEDIA, disallow)
         setUserRestriction(UserManager.DISALLOW_ADJUST_VOLUME, disallow)
+        setUserRestriction(UserManager.DISALLOW_CREATE_WINDOWS, disallow)
         mDevicePolicyManager.setStatusBarDisabled(mAdminComponentName, disallow)
     }
 
@@ -223,6 +224,18 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        session.close()
 //    }
+
+    override fun onResume() {
+        super.onResume()
+        // First, confirm that this package is allowlisted to run in lock task mode.
+        if (mDevicePolicyManager.isLockTaskPermitted(packageName)) {
+            startLockTask()
+        } else {
+            // Because the package isn't allowlisted, calling startLockTask() here
+            // would put the activity into screen pinning mode.
+            stopLockTask()
+        }
+    }
 
 
 }

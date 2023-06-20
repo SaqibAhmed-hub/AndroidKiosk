@@ -31,15 +31,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_start_lock_task" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_install_app"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/install_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
