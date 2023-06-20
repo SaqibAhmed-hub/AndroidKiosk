@@ -17,10 +17,10 @@ Lock Task Mode https://developer.android.com/work/dpc/dedicated-devices/lock-tas
 ```adb start-server```
 
 ~ How to setup the device owner:\
-```adb shell dpm set-device-owner com.example.dpc/.MyDeviceAdminReceiver```
+```adb shell dpm set-device-owner com.example.dpc/.receiver.MyDeviceAdminReceiver```
 
 ~ How to remove the device admin owner:\
-```adb shell dpm remove-active-admin com.example.dpc/.MyDeviceAdminReceiver```
+```adb shell dpm remove-active-admin com.example.dpc/.receiver.MyDeviceAdminReceiver```
 
 ~ To uninstall the app:\
 ```adb uninstall com.example.kioskandroid```

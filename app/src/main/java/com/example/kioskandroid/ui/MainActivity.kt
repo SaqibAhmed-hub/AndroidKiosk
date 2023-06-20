@@ -1,4 +1,4 @@
-package com.example.kioskandroid
+package com.example.kioskandroid.ui
 
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
@@ -11,8 +11,9 @@ import android.os.UserManager
 import android.provider.Settings
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kioskandroid.receiver.MyDeviceAdminReceiver
+import com.example.kioskandroid.R
 import com.example.kioskandroid.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mDevicePolicyManager: DevicePolicyManager
 
     companion object {
-        const val LOCK_ACTIVITY_KEY = "com.example.kioskandroid.MainActivity"
+        const val LOCK_ACTIVITY_KEY = "com.example.kioskandroid.ui.MainActivity"
     }
 
 
@@ -230,10 +231,14 @@ class MainActivity : AppCompatActivity() {
         // First, confirm that this package is allowlisted to run in lock task mode.
         if (mDevicePolicyManager.isLockTaskPermitted(packageName)) {
             startLockTask()
+            setImmersiveMode(true)
+            setAsHomeApp(true)
         } else {
             // Because the package isn't allowlisted, calling startLockTask() here
             // would put the activity into screen pinning mode.
             stopLockTask()
+            setImmersiveMode(false)
+            setAsHomeApp(false)
         }
     }
 

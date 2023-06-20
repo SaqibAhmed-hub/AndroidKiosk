@@ -1,4 +1,4 @@
-package com.example.kioskandroid
+package com.example.kioskandroid.receiver
 
 import android.app.admin.DeviceAdminReceiver
 import android.content.ComponentName
@@ -23,6 +23,16 @@ class MyDeviceAdminReceiver: DeviceAdminReceiver() {
     override fun onLockTaskModeExiting(context: Context, intent: Intent) {
         super.onLockTaskModeExiting(context, intent)
         Log.d(TAG, "onLockTaskModeExiting")
+    }
+
+    override fun onEnabled(context: Context, intent: Intent) {
+        super.onEnabled(context, intent)
+        Log.d(TAG, "Device Admin Enabled")
+    }
+
+    override fun onDisabled(context: Context, intent: Intent) {
+        super.onDisabled(context, intent)
+        Log.d(TAG, "Device Admin Disabled")
     }
 
 
